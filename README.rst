@@ -10,6 +10,11 @@ Code base possibilities
 
  [#]_
 
+Requirements
+---------------
+
+https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/BandwidthAuthorityRequirements
+
 Code/papers
 -----------
 
