@@ -1,13 +1,14 @@
-Bandwith scanner notes
-=======================
+Bandwith scanner improvement notes
+====================================
 
-Possibilites to improve current status [#]_
---------------------------------------------
+Code base possibilities
+-----------------------
 
-a. Develop peerflow and deploy it in place of torflow
-b. Finalize bwscanner and deploy in place of torflow
-c. Adapt the bridge bw scanner that is currently being developed
+    | a. Develop peerflow and deploy it in place of torflow
+    | b. Finalize bwscanner and deploy in place of torflow
+    | c. Adapt the bridge bw scanner that is currently being developed
 
+ [#]_
 
 Code/papers
 -----------
