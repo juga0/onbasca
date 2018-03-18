@@ -33,6 +33,33 @@ Tickets
 - TorFlow component query (63) : https://trac.torproject.org/projects/tor/query?status=!closed&component=Core+Tor%2FTorflow
 - tor-bwauth keyword query (7): https://trac.torproject.org/projects/tor/query?status=!closed&keywords=~tor-bwauth
 
+Class diagram
+--------------
+
+.. uml::
+
+    @startuml
+    namespace TorCtl {
+        EventHandler <|-- ConsensusTracker
+        EventHandler "0" *-- "*" EventListener
+        ConsensusTracker <|-- PathBuilder
+        PathBuilder *-- SelectionManager
+        SelectionManager *-- PathSelector
+        PathSelector "0" *-- "*" PathRestriction
+        PathSelector "2" *-- "*" NodeGenerator
+        NodeGenerator "0" *-- "*" NodeRestriction
+    }
+    namespace NetworkScanners {
+      package SpeedRacer {}
+      package BuildTimes {}
+      package SoaT {}
+    }
+    namespace Statistics {
+      package StatsHandler {}
+    }
+    @enduml
+
+
 Docs
 ----
 
