@@ -10,10 +10,9 @@ Welcome to Bandwith scanner notes's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   README
+   analysis
    torflow
    bwscanner
-   peerflow
    useful
 
 
