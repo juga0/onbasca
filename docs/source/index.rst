@@ -11,6 +11,7 @@ Welcome to Bandwith scanner notes's documentation!
    :caption: Contents:
 
    analysis
+   requirements
    torflow
    bwscanner
    useful
