@@ -21,6 +21,7 @@ Possible approaches
 ~~~~~~~~~~~~~~~~~~~~
 
 Based on the discussions in [#]_ and [#]_:
+
 a. Develop peerflow and deploy it in place of torflow
 b. Finalize bwscanner and deploy in place of torflow
 c. Adapt the bridge bw scanner that is currently being developed
@@ -29,11 +30,12 @@ e. Path Torflow
 f. Something simple from scratch
 
 Evaluation:
+
 a. Peerflow can be developed in parallel, it does not implement the simple algorithm needed in a short term
+b. BwScanner can be fixed and finished but seems hard to mantain
 c. The bridge scanner is considered not suitable for converting into a bandwith scanner
 d. OnionPerf uses Stem, it would be better to use Stem directly because OnionPerf implements other stuff not needed for the bandwith scanner
 e. Patching Torflow is not considered acceptable because is hard to run and maintain
-b. BwScanner can be fixed and finished but seems hard to mantain
 f. Something simple from scratch can be implemented reusing BwScanner and txtorcon new features
 
 .. [#] https://lists.torproject.org/pipermail/tor-dev/2017-December/012703.html
