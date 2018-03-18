@@ -1,5 +1,5 @@
-Torflow
-========
+Torflow in detail
+==================
 
 - `Torflow code <https://gitweb.torproject.org/torflow.git>`_,
 - `Torflow paper <https://research.torproject.org/techreports/torflow-2009-08-07.pdf>`_,
@@ -96,8 +96,8 @@ Bandwidth measurements files
 
 https://bwauth.ritter.vg/bwauth/
 
-Analysis
----------
+Measurements analysis
+-----------------------
 
 - map of bandwidth bias: https://atlas.torproject.org/#map_consensus_weight_to_bandwidth
 - bandwidth authority variance: https://tomrittervg.github.io/bwauth-tools/
