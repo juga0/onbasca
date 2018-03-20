@@ -23,6 +23,19 @@ Torflow in detail
 
 [#]_
 
+Algorithm to build two hops path
+---------------------------------------
+
+This needs to be reviewed:
+
+- take all relays, order by bandwith
+- divide in consecutive slices of 50 relays
+- for each relay in slice:
+  - take a (random?) exit in the slice (from the set of exits in that slice minus the relay itself)
+  - build a path with the relay and the exit
+  - download a file for 30secs
+  - calculate bandwith
+
 Tickets
 ------------
 
