@@ -7,6 +7,8 @@ BwScanner in detail
 Path algorithm
 ---------------
 
+What `TwoHops <https://github.com/TheTorProject/bwscanner/blob/develop/bwscanner/circuit.py#L101>`_ seems to do, needs review
+
 - Create set with exits
 - Order exits by bw
 - Take relay subset as random from 0? to num total relays (including exits?) taken by number of partitions
