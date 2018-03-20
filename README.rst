@@ -1,13 +1,4 @@
 Tor bandwith scanner
 =====================
 
-Requirements
----------------
-
-https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/BandwidthAuthorityRequirements
-
-
-Tickets
---------
-
-https://trac.torproject.org/projects/tor/ticket/13630
+See /docs/source/ or `bw-scanner-notes <https://bw-scanner-notes.readthedocs.io>`_ online
