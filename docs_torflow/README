@@ -1,0 +1,113 @@
+                            TorFlow
+
+
+TorFlow is a set of python scripts written to scan the Tor network for
+misbehaving, misconfigured, and overloaded Tor nodes. The ultimate goal
+is to build an automated, distributed reputation system that feeds into
+the directory servers and provides them with information on the
+reliability, capacity, and trustworthiness of routers, so that they can
+set flags that clients can use in routing decisions. 
+
+This is admittedly a lofty goal. In the meantime it should be able to
+figure out a bunch of neat stuff about Tor. 
+
+
+TorFlow consists of the following components:
+
+1. TorCtl package
+
+TorCtl is an updated version of the python Tor controller written by
+Nick Mathewson with extensions to support path building and various
+constraints on node and path selection.
+
+The basic structure is that the EventHandler class in TorCtl.py receives
+Tor controller events packaged into python classes. PathSupport.py
+provides a PathBuilder class that extends from EventHandler that handles
+circuit construction and stream attachment subject to policies defined
+by NodeRestrictor and PathRestrictor implementations. StatsSupport.py
+gathers statistics on the circuits and streams built by PathSupport.
+
+The TorCtl package is now fully pydoced. From this directory, you can 
+do:
+
+# pydoc TorCtl.TorCtl
+and 
+# pydoc TorCtl.PathSupport
+and
+# pydoc TorCtl.StatsSupport
+
+
+2. metatroller.py 
+
+Metatroller is a wrapper around StatsSupport that provides a
+meta-control port for use by Tor scanners.
+
+The metatroller is also pydoced. To view the documentation, you can do:
+
+# pydoc metatroller
+
+
+3. Network Scanners
+
+3a. NetworkScanners/soat.py
+
+SoaT provides tests for ensuring the honesty of exit nodes. It can check for
+invalid exit policies and perform tests to see whether nodes are changing
+the requested content for several protocols. See the soat README for
+details:
+
+# cd NetworkScanners ; cat ExitAuthority/README.ExitScanning
+
+Important note: soat requires the pyopenssl python module to run.
+You can check if pyopenssl package is available for your distribution
+(python-pyopenssl for debian/ubuntu, pyOpenSSL for fedora etc)
+or get it from http://pyopenssl.sourceforge.net/ 
+
+
+3b. NetworkScanners/speedracer.py
+
+SpeedRacer fetches a file repeatedly through circuits built by
+metatroller. It divides the Tor network into tiers based on percentiles
+of directory-reported node bandwidth and compiles statistics for each of
+these tiers itself and via metatroller.
+
+A README for gathering performance metrics with speedracer can be
+found in README.PerfMeasurements.
+
+4. Circuit Analysis
+
+4a. Build Time Anlysis
+
+The set of scripts under CircuitAnalysis/BuildTimes gathers and plots
+circuit construction times and fits a pareto curve to the results.
+
+A README for gathering performance metrics with buildtimes can be
+found in README.PerfMeasurements.
+
+
+4b. OP Addon
+
+In CircuitAnalysis/OPAddon is a utility designed to run along side a Tor
+client to build a map of latencies between nodes on the network, and to
+then use this map for future routing decisions. See
+CircuitAnalysis/OPAddon/README for more info.
+
+
+5. Node Monitors
+
+6a. NodeMonitors/nodemon.py
+
+Nodemon uses TorCtl to monitor ORCONN events on a Tor node to measure
+how much bandwidth is going to each peer node. It also measures how many
+circuits are killed by OR connections being shut down prematurely.
+
+6b. NodeMonitors/moniTor.py
+
+This is a "top-like" interface for Tor information It's goal at the
+start is to just tell you basic information In the future, you may be
+able to control Tor with it.
+
+
+
+Each of these components has a lot of room for improvement. Please see
+the TODO file for more information. 

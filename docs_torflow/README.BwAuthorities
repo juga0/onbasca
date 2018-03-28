@@ -1,0 +1,176 @@
+             So You Want to Fix the Tor Network: Episode One
+                                  - or -
+           How to Run a Bandwidth-Measuring Directory Authority
+
+
+0. Run a Directory Authority or Find One
+
+A Directory Authority is not required to run the bw scanners, but it is
+required if you want to submit results for the consensus.
+
+See http://git.torproject.org/checkout/tor/master/doc/v3-authority-howto.txt
+
+You will want the authority to use the new bandwidth voting code for
+your authority. You can get it with:
+
+     git clone git://git.torproject.org/git/tor.git tor.git
+
+You can also submit your results to an existing bandwidth authority.
+Basically, this will involve placing the bwscan.V3BandwidthsFile output on a
+webserver or SSH host that a bw authority can use to download that file. See
+Section 4 for more details.
+
+
+1. Find a machine with 100Mbit+ downstream
+
+This can be the same as your directory authority, but it does not have
+to be.  You will not need the 100Mbit continuously, but it should be
+available on demand, as some of the faster nodes actually do have this
+much slack capacity.
+
+You can test your capacity by hitting the current test server directly:
+# wget --no-check-certificate https://38.229.70.2/64M
+
+
+2. Installation and setup
+
+The bandwidth authorities are sensitive to exact component versions. There are
+two ways to set them up with the versions they need: use our scripts to
+prepare a virtualenv, or run through the setup manually.
+
+2.1. Scripted virtualenv setup
+
+The easiest and most reliable setup method is to use the setup.sh script
+to install a python 2.6/2.7 virtual environment. This script will download all
+of the dependencies and install them for you, but it will require that you
+have a copy of python2.6 or python2.7 installed and in your path.
+
+2.2. Manual setup
+
+You really should at least look at the virtualenv setup.sh script before
+trying this, but if you insist, here are the step by step instructions.
+
+2.2.1. Set up TorCtl
+
+You need to add TorCtl (pytorctl.git) as a git submodule by running the
+add_torctl.sh script in the root of torflow.git. BwAuthority expects pytorctl
+to be checked out into the root of torflow as TorCtl.
+
+2.2.2. Set up Tor
+
+The bandwidth authorities expect a tor binary in a tor.git repository along
+side the current torflow checkout. Here is how you would set that up:
+
+  cd ../../../
+  git clone https://git.torproject.org/tor.git tor.git
+  cd tor.git
+  git checkout release-0.2.4
+  ./autogen.sh
+  ./configure --disable-asciidoc
+  make -j4
+
+2.2.3. Install Python Dependencies
+
+The Bandwidth Authorities use the SQLAlchemy is 0.7.2 and Elixir 0.7.1.
+
+If your distribution does not provide 0.7.x, you will likely want to
+download that tarball from:
+
+http://pypi.python.org/pypi/SQLAlchemy/
+
+Untar it in the same directory that contains the TorFlow checkout and
+your git checkout (for peace of mind, you will want all three in the
+same place).
+
+If your distribution does not provide Elixir 0.7.x, do the
+same with Elixir:
+
+http://pypi.python.org/pypi/Elixir/
+
+So for example, an ls in ~/code/tor/ should look like this:
+
+# ls ~/code/tor/
+Elixir-0.7.1         SQLAlchemy-0.7.2           tor.git
+Elixir-0.7.1.tar.gz  SQLAlchemy-0.7.2.tar.gz    torflow-trunk
+
+Both these libraries also depend upon python-pysqlite2, which should be 
+a package for your distribution (you want 2.3.x for SQLite 3.x).
+
+2.2.4. Set up a cron job to submit results
+
+The provided cron.sh script is meant to be used in a cron job to
+aggregate the results and provide them to your directory authority at
+least every four hours, but more often is better.
+
+Because cron.sh is likely to be updated by git, you're going to want to
+make your own copy before you install the cron job:
+
+# cp cron.sh cron-mine.sh
+# echo -e "`crontab -l`\n45 0-23 * * * $HOME/code/torflow-trunk/NetworkScanners/BwAuthority/cron-mine.sh" | crontab
+
+You probably also want to make sure that the run_scan.sh script is started
+every reboot under this same user. You can do this via:
+
+# echo -e "@reboot $HOME/code/torflow-trunk/NetworkScanners/BwAuthority/run_scan.sh\n`crontab -l`" | crontab
+
+Note that authorities vote every hour starting at 50 past the hour.
+Hence the 45 to give us time to gather the results and copy them over.
+
+The script has two locations that you should consider editing. First
+is the SCANNER_DIR variable, which you should point at this 
+directory. The second is the bit at the end, where you need to choose
+if you want to scp the result (held in file $OUTPUT) to a different
+machine, or just copy it into place.
+
+In general, if you have any other bandwidth-intensive backup or mirror
+cron jobs on your scanning server, you should schedule them for between
+1:30am and 4:30am, as this is when your scanner will be idle. If this is
+not possible, you can configure your scanner to sleep during a different
+time by editing the bwauthority.cfg files in ./data/scanner.*.
+
+For more fine grained tuning, note that the scanner using ./data/scanner.1
+will require the most bandwidth, and ./data/scanner.4 will require the 
+least.
+
+
+3. Enable voting on bandwidths in your authority torrc
+
+The Bandwidth Authorities can be run without a directory authority, but for
+their results to count, they must be paired with a working dirauth.
+
+The dirauth-side configuration option is V3BandwidthsFile. It specifies the
+file containing your measured results, which we will configure in the later
+steps. Pick a location accessible by your Tor directory authority process and
+any rsync user you may have. 
+
+I recommend /var/lib/tor.scans/bwscan. If you try to use /var/lib/tor, tor
+will reset your permissions and exclude any other users from writing the file
+there.
+
+
+4. PROFIT!
+
+That's all there is to it. No '????' step needed!
+
+
+
+Appendix A: Creating the HTTPS scanning server
+
+The scanner server will need 500Mbit-1Gbit of upstream available, and will
+need to serve https via a fixed IP. SSL is needed to avoid HTTP content caches
+at the various exit nodes. Self-signed certs are OK.
+
+The server will consume around 12-15Gbytes/day.
+
+Here are two shell script snippets to generate the files we will need 
+for scanning and testing:
+
+for i in 64 32 16 8 4 2 1; do
+  dd if=/dev/urandom of=./${i}M bs=1k count=`expr $i \* 1024`
+done
+
+for i in 512 256 128 64 32 16; do
+  dd if=/dev/urandom of=./${i}k bs=1k count=$i
+done
+
+
