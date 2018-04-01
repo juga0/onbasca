@@ -1,1 +1,2 @@
 sphinxcontrib-plantuml
+sphinx-bootstrap-theme

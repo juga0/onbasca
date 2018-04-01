@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Bandwith scanner notes documentation build configuration file, created by
+# OnBaSca documentation build configuration file, created by
 # sphinx-quickstart on Wed Jan 10 16:16:53 2018.
 #
 # This file is execfile()d with the current directory set to its
@@ -16,10 +16,10 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../'))
+import sphinx_bootstrap_theme
 
 # -- General configuration ------------------------------------------------
 
@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Bandwith scanner notes'
+project = u'OnBaSca'
 copyright = u'2018, juga'
 author = u'juga'
 
@@ -88,14 +88,91 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+# html_theme = 'alabaster'
+html_theme = 'bootstrap'
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
+html_theme_options = {
+    # Navigation bar title. (Default: ``project`` value)
+    'navbar_title': project,
+
+    # Tab name for entire site. (Default: "Site")
+    'navbar_site_name': "Site",
+
+    # Tab name for the current pages TOC. (Default: "Page")
+    'navbar_pagenav_name': "Page",
+
+    # A list of tuples containing pages or urls to link to.
+    # Valid tuples should be in the following forms:
+    #    (name, page)                 # a link to a page
+    #    (name, "/aa/bb", 1)          # a link to an arbitrary relative url
+    #    (name, "http://example.com", True) # arbitrary absolute url
+    # Note the "1" or "True" value above as the third argument to indicate
+    # an arbitrary url.
+    # 'navbar_links': [
+    #     ("Examples", "examples"),
+    #     ("Link", "http://example.com", True),
+    # ],
+
+    # Global TOC depth for "site" navbar tab. (Default: 1)
+    # Switching to -1 shows all levels.
+    'globaltoc_depth': 2,
+
+    # Include hidden TOCs in Site navbar?
+    #
+    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
+    # non-hidden ``toctree`` directives in the same page, or else the build
+    # will break.
+    #
+    # Values: "true" (default) or "false"
+    'globaltoc_includehidden': "true",
+
+    # HTML navbar class (Default: "navbar") to attach to <div> element.
+    # For black navbar, do "navbar navbar-inverse"
+    'navbar_class': "navbar",
+
+    # Fix navigation bar to top of page?
+    # Values: "true" (default) or "false"
+    'navbar_fixed_top': "true",
+
+    # Location of link to source.
+    # Options are "nav" (default), "footer" or anything else to exclude.
+    'source_link_position': "nav",
+
+    # Bootswatch (http://bootswatch.com/) theme.
+    #
+    # Options are nothing (default) or the name of a valid theme such
+    # such as "cosmo" or "sandstone".
+    #
+    # Example themes:
+    # * flatly
+    # * sandstone (v3 only)
+    # * united
+    # * yeti (v3 only)
+    'bootswatch_theme': "sandstone",
+
+    # Choose Bootstrap version.
+    # Values: "3" (default) or "2" (in quotes)
+    'bootstrap_version': "3",
+}
+
+# Add any paths that contain custom themes here, relative to this directory.
+# html_theme_path = []
+
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
 #
 # html_theme_options = {}
+html_logo = 'images/onbasca.png'
 
+# The name of an image file (relative to this directory) to use as a favicon of
+# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+#
+html_favicon = 'images/onbasca.ico'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -112,12 +189,16 @@ html_sidebars = {
         'searchbox.html',
     ]
 }
+# Custom sidebar templates, maps document names to template names.
+#
+# html_sidebars = {}
+html_sidebars = {'sidebar': ['localtoc.html', 'sourcelink.html', 'searchbox.html']}
 
 
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Bandwithscannernotesdoc'
+htmlhelp_basename = 'OnBaScadoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -144,7 +225,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Bandwithscannernotes.tex', u'Bandwith scanner notes Documentation',
+    (master_doc, 'OnBaSca.tex', u'OnBaSca Documentation',
      u'juga', 'manual'),
 ]
 
@@ -154,7 +235,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'bandwithscannernotes', u'Bandwith scanner notes Documentation',
+    (master_doc, 'OnBaSca', u'OnBaSca Documentation',
      [author], 1)
 ]
 
@@ -165,8 +246,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Bandwithscannernotes', u'Bandwith scanner notes Documentation',
-     author, 'Bandwithscannernotes', 'One line description of project.',
+    (master_doc, 'OnBaSca', u'OnBaSca Documentation',
+     author, 'OnBaSca', 'One line description of project.',
      'Miscellaneous'),
 ]
 
