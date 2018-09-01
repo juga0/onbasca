@@ -1,5 +1,7 @@
-BwScanner in detail
-=====================
+.. _bwscanner:
+
+``BwScanner`` in detail
+========================
 
 `bwscanner code <https://github.com/TheTorProject/bwscanner>`_
 
@@ -33,3 +35,5 @@ What `TwoHops <https://github.com/TheTorProject/bwscanner/blob/develop/bwscanner
         ...
 
       - Return a random from exit slice
+
+See also :ref:`bwscanner-status`
