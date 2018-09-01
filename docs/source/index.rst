@@ -4,9 +4,9 @@ OnBaSca ⚖🌏
 ============
 
 Tor bandwidth authorities run bandwidth scanners to measure the relays capacity
- in the Tor network. They send their results to the directory authorities, 
- which use them to calculate the bandwidth weights of the relays, 
- what influences how the paths between relays and built.
+in the Tor network. They send their results to the directory authorities,
+which use them to calculate the bandwidth weights of the relays,
+what influences how the paths between relays and built.
 
 The bandwidth scanners play and important role on the performance and 
 security of the Tor network.
