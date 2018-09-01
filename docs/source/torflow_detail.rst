@@ -1,12 +1,14 @@
-Torflow in detail
-==================
+.. _torflow_detail:
 
-- `Torflow code <https://gitweb.torproject.org/torflow.git>`_,
-- `Torflow paper <https://research.torproject.org/techreports/torflow-2009-08-07.pdf>`_,
+``torflow`` in detail
+======================
+
+- `torflow code <https://gitweb.torproject.org/torflow.git>`_,
+- `torflow paper <https://research.torproject.org/techreports/torflow-2009-08-07.pdf>`_,
 - specs: in the code repo,
 - `wiki <https://trac.torproject.org/projects/tor/wiki/doc/BandwidthAuthority>`_
 
-- what torflow is doing, in a broad sense:
+- what ``torflow`` is doing, in a broad sense:
     | * launch 2 tor clients
     | * repeat as often as possible, running 9 different scanners:
     |     * split relays into buckets by bandwidth percentile
@@ -43,7 +45,7 @@ Tickets
   https://trac.torproject.org/projects/tor/ticket/13630
 - getting bandwidth servers more consistent and more geographically distributed:
   https://trac.torproject.org/projects/tor/ticket/24674
-- TorFlow component query (63) : https://trac.torproject.org/projects/tor/query?status=!closed&component=Core+Tor%2FTorflow
+- ``torflow`` component query (63) : https://trac.torproject.org/projects/tor/query?status=!closed&component=Core+Tor%2F``torflow``
 - tor-bwauth keyword query (7): https://trac.torproject.org/projects/tor/query?status=!closed&keywords=~tor-bwauth
 
 Class diagram
@@ -102,6 +104,8 @@ Example output
 File format
 ------------
 
+.. code-block:: none
+
     2.4. Result format
 
     The final output file for use by the directory authorities is comprised of
@@ -116,6 +120,8 @@ File format
     for those.
 
 [#]_
+
+.. code-block:: none
 
     3.4. Value storage
 
@@ -145,6 +151,8 @@ Measurements analysis
   https://trac.torproject.org/projects/tor/ticket/2394,
   https://gitweb.torproject.org/metrics-tasks.git/tree/task-2394
 
+
+See also :ref:`torflow-status`
 
 .. [#] https://lists.torproject.org/pipermail/tor-dev/2017-December/012714.html
 .. [#] https://gitweb.torproject.org/torflow.git/tree/NetworkScanners/BwAuthority/README.spec.txt#n332
