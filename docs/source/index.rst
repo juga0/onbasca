@@ -15,10 +15,6 @@ This project aims at improving the current bandwidth scanner implementation
 and research on the current issues in the network related to 
 bandwidth measurements and weights.
 
-This site compiles information related to bandwidth in Tor, the current status
-and the improvements, but the main documentation is on the Websites
-of the software being improved.
-
 The bandwidth scanner being improved is ``sbws``:
 
 - `sbws <https://sbws.readthedocs.io/>`_ documentation
@@ -30,6 +26,14 @@ The improvements on core-Tor:
 - `tor code <https://gitweb.torproject.org/tor.git>`_
 - `bandwidth related tor tickets <https://trac.torproject.org/projects/tor/query?keywords=~bwauth&or&keywords=~dir-bwauth&col=id&col=summary&col=status&col=type&col=priority&col=milestone&col=component&order=priority>`_
 - `bandwidth related wike page <https://trac.torproject.org/projects/tor/wiki/org/teams/NetworkTeam/BandwidthAuthority>`_
+
+**Slides**:
+
+- `Bornhack 2018 <https://juga0.github.io/onbasca_hax_slides/>`_
+
+**This site** compiles information related to bandwidth in Tor, the current status
+and the improvements, but the main documentation is on the Websites
+of the software being improved.
 
 For any issues or suggestions, please open an `issue <https://github.com/juga0/onbasca/issues>`_
 
