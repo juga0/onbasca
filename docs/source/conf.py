@@ -30,13 +30,20 @@ import sphinx_bootstrap_theme
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc',
+extensions = [
+    'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
+    # 'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
-    'sphinxcontrib.plantuml']
+    'sphinxcontrib.plantuml',
+    'sphinx.ext.imgmath',
+    'sphinx.ext.intersphinx'
+    ]
+
+intersphinx_mapping = {'sbwsdoc': ('https://sbws.readthedocs.io/en/latest',
+                                   'sbwsdoc.inv')}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
