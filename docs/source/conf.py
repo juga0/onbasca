@@ -207,6 +207,10 @@ html_sidebars = {'sidebar': ['localtoc.html', 'sourcelink.html', 'searchbox.html
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'OnBaScadoc'
 
+# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+# using the given strftime format.
+html_last_updated_fmt = '%b %d, %Y'
+html_show_sphinx = False
 
 # -- Options for LaTeX output ---------------------------------------------
 
