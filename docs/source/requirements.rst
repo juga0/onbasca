@@ -1,10 +1,12 @@
-Requirements
---------------
+.. _requirements:
+
+Requirements (Mar 2018)
+========================
 
 Based on [#]_
 
 Must (short term)
-~~~~~~~~~~~~~~~~~
+-----------------
 
 - easy to run
 - easy to maintain
@@ -16,50 +18,50 @@ Must (short term)
   - write results as soon as they are produced instead of wait until all relays are acanned
   - bandwidth output: one integer per tor relay
   - if it takes a long time to run, run it on a subset of the network so we can look at the results
-  - numbers can be different to TorFlow, but format should be the same
+  - numbers can be different to ``torflow``, but format should be the same
 
 - input:
 
- - include new relays within a short time: prefer to scan volatile relays;
- - if a relay has been stable, deprioritize it
- - not rely on self-reported capacity, though it can start with those reports
+  - include new relays within a short time: prefer to scan volatile relays;
+  - if a relay has been stable, deprioritize it
+  - not rely on self-reported capacity, though it can start with those reports
 
 - network interaction:
 
- - not slow down the network
- - multiple "pipes of measurement" must be able to coexist
- - be able to run multiple scanners at once
- - if we run multiple bwscanners concurrently then their output measurements need to be compatible -- normalize measurements so that they can be comparable.
- - dirauths might need to normalize values between different implementations
- - bwauths?: combination is _median_; add up all the numbers and divide by N is a plausible way to normalise the numbers
- - [?] self-reported measurements should be treated as a cap, so that we don't overallocate traffic through that.
- - must not reduce network diversity by pushing out slow relays: while there is not feedback mechanism, this won't happen?
+  - not slow down the network
+  - multiple "pipes of measurement" must be able to coexist
+  - be able to run multiple scanners at once
+  - if we run multiple bwscanners concurrently then their output measurements need to be compatible -- normalize measurements so that they can be comparable.
+  - dirauths might need to normalize values between different implementations
+  - bwauths?: combination is _median_; add up all the numbers and divide by N is a plausible way to normalise the numbers
+  - [?] self-reported measurements should be treated as a cap, so that we don't overallocate traffic through that.
+  - must not reduce network diversity by pushing out slow relays: while there is not feedback mechanism, this won't happen?
 
 - privacy
 
- - it should not measure in such detail that it is effectively a global adversary.
+  - it should not measure in such detail that it is effectively a global adversary.
 
 - algorithm:
 
- - measure by time, not by size. fetch over a certain amount of time, throw away the first and last bits, see how much went through
- - have script that builds path and fetches data should be separate from decisions about parameters of what was fetched and for how long.
- - express each weight as a proportion of the total, and multiply by some agreed total (e.g. for the current network it would have to be the total of the consensus weight, but within some limited range to avoid unbounded growth)
-   ie: relays_bw = [10, 70, 100], total_bw = sum([10, 70, 100]) = 180, relays_bw_normalized = [1/18, 7/18, 10/18]
- - be able to normalize measurements.
- - educated guesses, not making a robustly tested experiment.
+  - measure by time, not by size. fetch over a certain amount of time, throw away the first and last bits, see how much went through
+  - have script that builds path and fetches data should be separate from decisions about parameters of what was fetched and for how long.
+  - express each weight as a proportion of the total, and multiply by some agreed total (e.g. for the current network it would have to be the total of the consensus weight, but within some limited range to avoid unbounded growth)
+    ie: relays_bw = [10, 70, 100], total_bw = sum([10, 70, 100]) = 180, relays_bw_normalized = [1/18, 7/18, 10/18]
+  - be able to normalize measurements.
+  - educated guesses, not making a robustly tested experiment.
 
 - deployment:
 
- - needs to be deployable to ~5 people, not to hundreds
+  - needs to be deployable to ~5 people, not to hundreds
 
 - milestones:
 
- - should be a script that produces numbers
- - should be run on the real network asap
- - 2/6/8 months short term
+  - should be a script that produces numbers
+  - should be run on the real network asap
+  - 2/6/8 months short term
 
 Nice to have (middle term)
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 - network interaction:
 
@@ -70,8 +72,8 @@ Nice to have (middle term)
 
 - security:
 
- - threat model in terms of making it gamable
- - bandwidth authorities themselves must not be detectable so that they can't be gamed.
+  - threat model in terms of making it gamable
+  - bandwidth authorities themselves must not be detectable so that they can't be gamed.
 
 - measure cpu load, memory, socket availability, ram preasure, etc.
 - run tests/experiments with shadow
@@ -79,26 +81,12 @@ Nice to have (middle term)
 - simple tool that can be re-used for bridge measurement
 
 Long term
-~~~~~~~~~~
+----------
 
 - we want to measure between pairs of relays, not specific relays
 - not actually just measuring bandwidth; it's a mix of latency, diversity, etc. measurements from australia will give different results from measurements from austria.
 - client-side changes should be explicitly separated from measuring relays.
 - if we don't max out our slow relay operators, then we might be discouraging them from increasing capacity.
 - "proof of storage" protocol, which delegates the bandwidth measurements to little relays, which run in aggregate to measure bigger relays
-
-open questions
-~~~~~~~~~~~~~~~
-
-- what particular algorithm to use?
-- how can we control other variables?
-- do we want relays under our control to use for the measurements?
-- how are exits chosen,
-- and where are the files downloaded from?
-- how big are the files that we try to download?
-- can we use Conflux or something like this? it could be a DDoS against the new relays. this could be done selectively against those relays with the unmeasured flag.
-- if we measure the same relay 10 times, what should we do to combine these numbers?
-- how important is it to keep the slow relays in the network? what does pushing them out do to network diversity?
-- what balance do we want between optimizing performance and maintaining network security?
 
 .. [#] https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/BandwidthAuthorityRequirements
