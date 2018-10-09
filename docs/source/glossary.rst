@@ -3,10 +3,99 @@
 Glossary
 =========
 
-:ref:`<sbwsdoc:glossary>`
+:seealso:
 
-.. note::
-    `Tor metrics <.https://metrics.torproject.org/glossary.html>`_ in rst.
+- :ref:`sbws glossary <sbwsdoc:glossary>`
+- [GLOSSARYCOMM]_
+
+From relays' configuration
+----------------------------
+
+[TOR1]_
+
+.. glossary::
+
+  BandwidthRate:
+    A token bucket limits the average incoming/outgoing bandwidth (default 1GB)
+
+  BandwidthBurst:
+    Limit the maximum token bucket size (also known as the burst) in each direction (default: 1GB)
+
+  MaxAdvertisedBandwidth:
+    will not advertise more than this amount of bandwidth for our BandwidthRate
+    Server operators who want to reduce the number of clients who ask:
+    to build circuits through them (since this is proportional to advertised bandwidth rate) can thus reduce the CPU demands on their server without impacting
+    network performance.
+
+  RelayBandwidthRate:
+    ...
+
+  RelayBandwidthBurst:
+    ...
+
+  PerConnBWRate:
+    ...
+
+  PerConnBWBurst:
+    ...
+
+From descriptors
+-----------------
+
+[DIRSPEC427]_
+
+.. glossary::
+
+  average bandwidth:
+    bw that the relay is willing to sustain over long periods
+
+    ::
+
+        bandwidth-avg = min(RelayBandwidthRate, RelayBandwidthBust, BandwidthRate, BandwidthBurst, MaxAdvertisedBandwidth)
+
+  burst bandwidth:
+    bw that the relay is willing to sustain in very short intervals
+
+    ::
+
+        bandwidth-burst = min(RelayBandwidthBust, BandwidthBurst)
+
+  observed bandwidth:
+    min(max bandwidth sustained output over any 10secs in the past day,
+    another sustained input)
+
+
+  advertised bandwidth:
+
+    ::
+
+      min(average bandwidth, burst bandwidth, observed bandwidth)
+
+From consensus
+--------------------
+
+[DIRSPEC2337]_
+
+.. glossary::
+
+  Bandwidth:
+
+    ::
+
+        min(observed bandwidth, descriptor bandwidth rate limit, 10MB/s) KB/s
+
+  Measured:
+    If 3 or more authorities provide a Measured= keyword for
+    a router, the authorities produce a consensus containing a "w"
+    Bandwidth= keyword equal to the median of the Measured= votes.
+
+    ::
+
+        descriptor observed bandwidth * ratio(...)
+
+From metrics in rst
+----------------------
+[GLOSSARYMET]_
 
 .. glossary::
 
@@ -52,18 +141,20 @@ Glossary
   relay flag:
     a special (dis-)qualification of relays for circuit positions (for example, "Guard", "Exit", "BadExit"), circuit properties (for example, "Fast", "Stable"), or roles (for example, "Authority", "HSDir"), as assigned by the directory authorities and further defined in the directory protocol specification.
 
-.. note::
-    https://gitweb.torproject.org/torspec.git/tree/glossary.txt
+From tor code in rst
+---------------------
+
+[GLOSSARYSPEC]_
 
 .. glossary::
 
-  ORPort 
+  ORPort
     Onion Router Port
-    
-  DirPort 
+
+  DirPort
     Directory Port
 
-  Relays, 
+  Relays,
     aka OR (onion router)
 
   Exit relay:
@@ -140,7 +231,7 @@ Glossary
     A circuit whose traffic never leaves the Tor
     network. For example, a client could connect to a hidden service via
     an internal circuit.
-    
+
   Consensus:
      The state of the Tor network, published every hour,
      decided by a vote from the network's directory authorities. Clients
@@ -209,5 +300,3 @@ Glossary
     client and a relay. Circuits are multiplexed over Channels. All
     channels are currently implemented as TLS connections.
 
-
-See also `Tor glossary version 1.0 <https://trac.torproject.org/projects/tor/wiki/doc/community/glossary>`_
