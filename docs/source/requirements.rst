@@ -3,7 +3,7 @@
 Requirements (Mar 2018)
 ========================
 
-Based on [#]_
+Based on [BwAuthRome]_
 
 Must (short term)
 -----------------
@@ -88,5 +88,3 @@ Long term
 - client-side changes should be explicitly separated from measuring relays.
 - if we don't max out our slow relay operators, then we might be discouraging them from increasing capacity.
 - "proof of storage" protocol, which delegates the bandwidth measurements to little relays, which run in aggregate to measure bigger relays
-
-.. [#] https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/BandwidthAuthorityRequirements
