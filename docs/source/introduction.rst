@@ -1,7 +1,7 @@
 .. _introduction:
 
-Introduction 
-=============
+Introduction to Tor bandwidth scanner
+======================================
 
 .. toctree: Contents
    :local:
