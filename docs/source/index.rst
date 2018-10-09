@@ -8,11 +8,11 @@ in the Tor network. They send their results to the directory authorities,
 which use them to calculate the bandwidth weights of the relays,
 what influences how the paths between relays and built.
 
-The bandwidth scanners play and important role on the performance and 
+The bandwidth scanners play and important role on the performance and
 security of the Tor network.
 
-This project aims at improving the current bandwidth scanner implementation 
-and research on the current issues in the network related to 
+This project aims at improving the current bandwidth scanner implementation
+and research on the current issues in the network related to
 bandwidth measurements and weights.
 
 The bandwidth scanner being improved is ``sbws``:
@@ -43,29 +43,35 @@ or `epub <https://readthedocs.org/projects/onbasca/downloads/epub/latest/>`_
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents in this site (WIP):
-   :numbered: 
+   :caption: Documentation in **this site** about Tor bandwidth and scanners:
+   :numbered:
 
    introduction
    bandwidth_tor
-   bandwidth_scanners
+   bandwidth_tor_code
+   bwscanner
+   torflow
+   torflow_aggr
+   sbws
+   distribution_goal
    measure_improvements
+   thread_modeling
    analysis
    requirements
-   planned_work
    open_questions
-   thread_modeling
-   torflow_detail
-   bwscanner_detail
-   bandwidth_tor_code
-   tor_tests
+   planned_work
+   agenda_tor_mx
    glossary
+   references
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Useful documentation copied from resources:
+
+   tor_tests
+   networks
+   statistics
+   pidcontrol
    dir-spec
 
-
-Indices and tables
-==================
-
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
