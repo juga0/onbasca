@@ -3,22 +3,33 @@
 How to measure improvements
 =============================
 
-So far:
+Existing graphs
+----------------
 
-* https://metrics.torproject.org/rs.html#map_consensus_weight_to_bandwidth
+* [MetricsWeight]_
 
 .. image:: images/map_bw_consensus_advertised.png
+   :width: 800px
 
-* https://metrics.torproject.org/bandwidth.html
+* [MetricsBw]_
 
 .. image:: images/bandwidth-2018-05-22-2018-08-20.png
+   :width: 800px
 
-* https://torflow.uncharted.software/#/2016-1-13?ML=-42,40,3
+* [TorflowMap]_
 
 .. image:: images/map_bw_uncharted.png
+   :width: 800px
 
-Ideas:
+New bandwidth graphs ideas
+---------------------------
 
-* What other graphs/maps would be interesting?
+* raw measured bw vs consensus bw
+* desc avg-bw vs consensus bw
+* desc obs-bw vs consensus bw
+
+Other ideas
+------------
+
 * Firefox extension that tells current circuit bandwidth?
 * Firefox extension that tells current measured capacity in the network?
