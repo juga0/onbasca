@@ -1,7 +1,9 @@
 .. _open_questions:
 
-Open questions
-===============
+Open questions (Mar 2018)
+===========================
+
+
 
 - do we want relays under our control to use for the measurements?
 - algorithm to choose exits?
