@@ -3,7 +3,7 @@
 Writing ``tor`` tests
 =====================
 
-Documentation in `doc/HACKING/WritingTests.md <https://gitweb.torproject.org/tor.git/tree/doc/HACKING/WritingTests.md>`_
+Documentation from [torTests]_ (Jun 2018)
 
 
 Writing tests
@@ -88,7 +88,9 @@ A single test::
 Before committing
 ------------------
 
-    --enable-fragile-hardening
+::
+
+    ./config --enable-fragile-hardening
 
     make check-local
     make check-spaces
