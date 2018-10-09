@@ -1,15 +1,21 @@
 .. _bwscanner:
 
-``BwScanner`` in detail
-========================
+``bwscanner``
+==============
 
-`bwscanner code <https://github.com/TheTorProject/bwscanner>`_
+- by Aaron Gibson and others
+- 2016
+- use [Twisted]_ and [txtorcon]_
+- not production ready
+- currently unmaintained
+
+[BwscannerCode]_
 
 
 Path algorithm
----------------
+~~~~~~~~~~~~~~~
 
-What `TwoHops <https://github.com/TheTorProject/bwscanner/blob/develop/bwscanner/circuit.py#L101>`_ seems to do, needs review
+What [BwscannerTwoHops]_ seems to do, needs review
 
 - Create set with exits
 - Order exits by bw
@@ -35,5 +41,3 @@ What `TwoHops <https://github.com/TheTorProject/bwscanner/blob/develop/bwscanner
         ...
 
       - Return a random from exit slice
-
-See also :ref:`bwscanner-status`
