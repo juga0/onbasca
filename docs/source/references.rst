@@ -9,6 +9,7 @@ References
 .. [BridgeBwScanner] https://gitlab.com/DrPeterVanNostrand/bridge-bwscanner
 .. [BwAuthFiles] https://bwauth.ritter.vg/bwauth/
 .. [BwAuthKey] https://trac.torproject.org/projects/tor/query?status=!closed&keywords=~tor-bwauth
+.. [BwAuthMex] https://trac.torproject.org/projects/tor/wiki/org/meetings/2018MexicoCity/Notes/BandwidthScanner
 .. [BwAuthRome] https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/BandwidthAuthorityRequirements
 .. [BwAuthTools] https://tomrittervg.github.io/bwauth-tools/
 .. [BwAuthWiki] https://trac.torproject.org/projects/tor/wiki/doc/BandwidthAuthority

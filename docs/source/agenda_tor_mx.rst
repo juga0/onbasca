@@ -26,7 +26,7 @@ past meeting goal: :ref:`requirements`
 
 DONE! :-)
 
-briefly, how sbws works 
+briefly, how sbws works
 ------------------------
 
 - net
@@ -82,3 +82,5 @@ Others
 
 - documentation
 - work organization
+
+Notes; [BwAuthMex]_
