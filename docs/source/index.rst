@@ -66,7 +66,7 @@ or `epub <https://readthedocs.org/projects/onbasca/downloads/epub/latest/>`_
 
 .. toctree::
    :maxdepth: 3
-   :caption: Useful documentation copied from resources:
+   :caption: Useful documentation copied from other resources:
 
    tor_tests
    networks
