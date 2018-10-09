@@ -6,7 +6,7 @@ Bandwidth code in ``tor``
 Descriptors
 ------------
 
-``bandwithrate`` is used to name ``bandwidth-avg`` in dir-spec.txt 2.1.1
+``bandwithrate`` is used to name ``bandwidth-avg`` [DIRSPEC427]_
 
 .. code-block:: none
 
@@ -14,7 +14,7 @@ Descriptors
 
   bandwidth-burst = min(RelayBandwidthBust, BandwidthBurst)
 
-From ``get_effective_bwrate()`` [#]_ and ``get_effective_bwburst()``
+From ``get_effective_bwrate()`` [torDoxygenBwrate]_ and ``get_effective_bwburst()``
 
 ``bandwidthcapacity == ``bandwidth-observed`` (dir-spec)
 
@@ -80,7 +80,7 @@ measured bandwidth (by bwauths) or the self advertised bandwidth, but not any se
 Vote and consensus
 -------------------
 
-``Bandwidth`` in dir-spec.txt 3.4.1 votes::
+``Bandwidth`` [DIRSPEC2337]_::
 
     Bandwidth = min(bandwidth-avg, bandwidth-observed)?
     
@@ -103,8 +103,3 @@ Constants
 
     NUM_TOTALS = NUM_SECS_BW_SUM_IS_VALID / NUM_SECS_BW_SUM_INTERVAL  = 5
     NUM_SECS_BW_SUM_INTERVAL * NUM_TOTALS = NUM_SECS_BW_SUM_IS_VALID (5 days)
-
-
-.. rubric:: Footnotes
-
-.. [#] http://juga.space/tor_doxygen/config_8c.html#ae937a27a04bbab82090c0d47c5846309
