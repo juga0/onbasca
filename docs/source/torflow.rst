@@ -1,14 +1,26 @@
-.. _torflow_detail:
+.. _torflow:
 
-``torflow`` in detail
-======================
+Torflow in detail
+=================
 
-- `torflow code <https://gitweb.torproject.org/torflow.git>`_,
-- `torflow paper <https://research.torproject.org/techreports/torflow-2009-08-07.pdf>`_,
-- specs: in the code repo,
-- `wiki <https://trac.torproject.org/projects/tor/wiki/doc/BandwidthAuthority>`_
+- by Mike Perry and others
+- 2010?
+- use TorCtl [pytorctlCode]_, Python 2
+- not easy to install
+- not easy to maintain
 
-- what ``torflow`` is doing, in a broad sense:
+[TorflowCode]_, [TorflowPaper]_, [TORFLOWSPEC]_, [BwAuthWiki]_
+
+How ``torflow`` performs measurements
+--------------------------------------
+
+- split relays into buckets by bandwidth percentile
+- build two hop circuits with a relay and exit from relays in the bucket
+- download a file from a Web server. The file size is based on the bucket
+- measure how long it takes
+- store the results
+
+What ``torflow`` is doing, in a broad sense:
     | * launch 2 tor clients
     | * repeat as often as possible, running 9 different scanners:
     |     * split relays into buckets by bandwidth percentile
@@ -23,12 +35,10 @@
     |     * and dump it to a file
     | Then authorities read this file and include it in their votes.
 
-[#]_
+[mlBwProgressDec2]_
 
 Algorithm to build two hops path
----------------------------------------
-
-This needs to be reviewed:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - take all relays, order by bandwith
 - divide in consecutive slices of 50 relays
@@ -38,15 +48,42 @@ This needs to be reviewed:
   - download a file for 30secs
   - calculate bandwith
 
+
+How ``torflow`` aggregates measurements
+----------------------------------------
+
+- hourly
+- calculate a bandwidth weight based on the descriptor ``observed bandwidth`` (advertised bandwidth ratio?)
+- generate a ``measurements`` file
+
+The ``measurements`` file is read by the dirauths and includes the ``measured``
+bandwidth in their votes.
+
+How the bandwidth weight is calculated
+---------------------------------------
+
+::
+
+    bw_observed = min(bandwidth-avg, bandwidth-burst, bandwidth-observed)
+
+Example ``torflow``'s Bandwidth measurements file
+--------------------------------------------------
+
+`aka` `Bandwidth list v1.0.0` 
+
+.. code-block:: none
+
+  1523911758
+  node_id=$68A483E05A2ABDCA6DA5A3EF8DB5177638A27F80 bw=760 nick=Test measured_at=1523911725 updated_at=1523911725 pid_error=4.11374090719 pid_error_sum=4.11374090719 pid_bw=57136645 pid_delta=2.12168374577 circ_fail=0.2 scanner=/filepath
+  node_id=$96C15995F30895689291F455587BD94CA427B6FC bw=189 nick=Test2 measured_at=1523911623 updated_at=1523911623 pid_error=3.96703337994 pid_error_sum=3.96703337994 pid_bw=47422125 pid_delta=2.65469736988 circ_fail=0.0 scanner=/filepath
+
 Tickets
 ------------
 
-- Bandwith Authority Renovation:
-  https://trac.torproject.org/projects/tor/ticket/13630
-- getting bandwidth servers more consistent and more geographically distributed:
-  https://trac.torproject.org/projects/tor/ticket/24674
-- ``torflow`` component query (63) : https://trac.torproject.org/projects/tor/query?status=!closed&component=Core+Tor%2F``torflow``
-- tor-bwauth keyword query (7): https://trac.torproject.org/projects/tor/query?status=!closed&keywords=~tor-bwauth
+- Bandwith Authority Renovation: [Ticket13630]_
+- getting bandwidth servers more consistent and more geographically distributed: [Ticket24674]_
+- ``torflow`` component query (63) : [TorflowComp]_
+- tor-bwauth keyword query (7): [BwAuthKey]_
 
 Class diagram
 --------------
@@ -78,7 +115,7 @@ Class diagram
 Docs
 ----
 
-To run Bandwith authority scanner [#]_
+To run Bandwith authority scanner [BwAuthWiki]_
 
 
 Install & run
@@ -119,7 +156,7 @@ File format
     If PID control is enabled, additional values are stored. See Section 3.4
     for those.
 
-[#]_
+[TORFLOWSPEC332]_
 
 .. code-block:: none
 
@@ -135,26 +172,23 @@ File format
 
        pid_delta is purely informational, and is not used in feedback.
 
-[#]_
+[TORFLOWSPEC447]_
+
+Scaling
+--------
+
+See :ref:`torflow_aggr`
 
 Bandwidth measurements files
 -----------------------------
 
-https://bwauth.ritter.vg/bwauth/
+[BwAuthFiles]_
 
 Measurements analysis
 -----------------------
 
-- map of bandwidth bias: https://atlas.torproject.org/#map_consensus_weight_to_bandwidth
-- bandwidth authority variance: https://tomrittervg.github.io/bwauth-tools/
+- map of bandwidth bias: [MetricsWeight]_
+- bandwidth authority variance: [BwAuthTools]_
 - CDF graphs of bw authority votes for all of the flag combinations:
-  https://trac.torproject.org/projects/tor/ticket/2394,
-  https://gitweb.torproject.org/metrics-tasks.git/tree/task-2394
-
-
-See also :ref:`torflow-status`
-
-.. [#] https://lists.torproject.org/pipermail/tor-dev/2017-December/012714.html
-.. [#] https://gitweb.torproject.org/torflow.git/tree/NetworkScanners/BwAuthority/README.spec.txt#n332
-.. [#] https://gitweb.torproject.org/torflow.git/tree/NetworkScanners/BwAuthority/README.spec.txt#n447
-.. [#] https://trac.torproject.org/projects/tor/wiki/doc/BandwidthAuthority
+  [Ticket2394]_,
+  [MetricsTask2394]_
