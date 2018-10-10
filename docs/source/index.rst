@@ -55,6 +55,7 @@ or `epub <https://readthedocs.org/projects/onbasca/downloads/epub/latest/>`_
    sbws
    distribution_goal
    measure_improvements
+   sbws_shadow
    thread_modeling
    analysis
    requirements
