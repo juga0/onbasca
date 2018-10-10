@@ -48,9 +48,9 @@ TorflowMap
 New bandwidth graphs ideas
 ---------------------------
 
-* raw measured bw vs consensus bw
-* desc avg-bw vs consensus bw
-* desc obs-bw vs consensus bw
+* raw measured bw vs consensus bw (per relay, total)?
+* desc avg-bw vs consensus bw (per relay, total)?
+* desc obs-bw vs consensus bw (per relay, total)?
 
 Other ideas
 ------------
