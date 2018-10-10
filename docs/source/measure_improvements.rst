@@ -3,6 +3,15 @@
 How to measure improvements
 =============================
 
+How to check bandwidth is not worst
+--------------------------------------
+
+* Using data from [OnionperfCode]_ and [TorperfCode]_, the time to download
+  files should not be bigger. See [MetricsPerf]_
+* Total relay bandwidth should not be smaller. See [MetricsBw]_
+* Running tor with [shadow]_ and Cellstatistics enabled, the number of cells
+  should be small. See :ref:`sbws_shadow`
+
 Existing graphs
 ----------------
 
