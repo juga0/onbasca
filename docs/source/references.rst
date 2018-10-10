@@ -21,6 +21,7 @@ References
 .. [DIRSPEC] https://gitweb.torproject.org/torspec.git/plain/dir-spec.txt
 .. [DIRSPEC2337] https://gitweb.torproject.org/torspec.git/tree/dir-spec.txt#n2337
 .. [DIRSPEC427] https://gitweb.torproject.org/torspec.git/tree/dir-spec.txt#n427
+.. [DIRSPEC833] https://gitweb.torproject.org/torspec.git/tree/dir-spec.txt#n833
 .. [GLOSSARYCOMM] https://trac.torproject.org/projects/tor/wiki/doc/community/glossary
 .. [GLOSSARYMET] https://metrics.torproject.org/glossary.html
 .. [GLOSSARYSPEC] https://gitweb.torproject.org/torspec.git/tree/glossary.txt
@@ -28,6 +29,7 @@ References
 .. [MetricsBw] https://metrics.torproject.org/bandwidth.html
 .. [MetricsTask2394] https://gitweb.torproject.org/metrics-tasks.git/tree/task-2394
 .. [MetricsWeight] https://metrics.torproject.org/rs.html#map_consensus_weight_to_bandwidth
+.. [MetricsPerf] https://metrics.torproject.org/torperf.html
 .. [mlBwProgressDec1] https://lists.torproject.org/pipermail/tor-dev/2017-December/012703.html
 .. [mlBwProgressDec2] https://lists.torproject.org/pipermail/tor-dev/2017-December/012714.html
 .. [OnBaScaCode] https://github.com/juga0/onbasca
@@ -44,6 +46,7 @@ References
 .. [sbwsDia] https://sbws.readthedocs.io/en/latest/diagrams.html
 .. [sbwsDoc] https://sbws.readthedocs.io
 .. [sbwsIssues] https://trac.torproject.org/projects/tor/query?component=Core+Tor%2Fsbws&col=id&col=summary&col=component&col=status&col=type&col=priority&col=milestone&col=changetime&report=68&order=priority
+.. [shadow] https://shadow.github.io/
 .. [stdev] https://en.wikipedia.org/wiki/Standard_deviation
 .. [stdscore] https://en.wikipedia.org/wiki/Standard_score
 .. [StemCode] https://gitweb.torproject.org/stem.git
@@ -60,6 +63,7 @@ References
 .. [TORFLOWSPEC] https://gitweb.torproject.org/torflow.git/tree/NetworkScanners/BwAuthority/README.spec.txt
 .. [TORFLOWSPEC332] https://gitweb.torproject.org/torflow.git/tree/NetworkScanners/BwAuthority/README.spec.txt#n332
 .. [TORFLOWSPEC447] https://gitweb.torproject.org/torflow.git/tree/NetworkScanners/BwAuthority/README.spec.txt#n447
+.. [TorperfCode] https://gitweb.torproject.org/torperf.git
 .. [torTests] https://gitweb.torproject.org/tor.git/tree/doc/HACKING/WritingTests.md
 .. [Twisted] https://twistedmatrix.com
 .. [txtorcon] https://github.com/meejah/txtorcon
