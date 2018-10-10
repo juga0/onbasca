@@ -133,9 +133,7 @@ In ``dirserv.c``:
   }
 
 
-    Bandwidth = min(bandwidth-avg, bandwidth-observed)?
-    
-Constants 
+Constants
 -----------
 
 .. code-block:: c
