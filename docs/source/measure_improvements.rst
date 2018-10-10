@@ -15,10 +15,12 @@ How to check bandwidth is not worst
 Existing graphs
 ----------------
 
-* [MetricsWeight]_
+Metrics performance
+~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: images/map_bw_consensus_advertised.png
-   :width: 800px
+.. image:: images/metrics_performance.png
+
+[MetricsPerf]_
 
 * [MetricsBw]_
 
