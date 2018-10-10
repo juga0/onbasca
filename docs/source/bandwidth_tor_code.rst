@@ -6,7 +6,7 @@ Bandwidth code in ``tor``
 To calculate descriptors bandwidth
 ------------------------------------
 
-As stated in :ref:`bandwith_tor_desc`:
+As stated in :ref:`bandwidth_tor_desc`:
 
 .. code-block:: none
 
@@ -75,10 +75,10 @@ In ``/or/dirvote.c``:
                              guardfraction_str ? guardfraction_str : "");
 
 
-To calculate vote and consensus bandwith
+To calculate vote and consensus bandwidth
 ----------------------------------------
 
-As stated in :ref:`bandwith_tor_cons`:
+As stated in :ref:`bandwidth_tor_cons`:
 
 
 .. code-block:: none
