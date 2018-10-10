@@ -88,10 +88,13 @@ Bandwidth values in dirauths' consensus documents
 
 [DIRSPEC2337]_
 
-Bandwidth = min(observed bandwidth, descriptor bandwidth rate limit [?], 10MB/s) 
-KB/s
+.. code-block:: none
 
-Measured = consensus bandwidth * ratio(avg stream, ``network avg`` [?])
+  bandwidth rate limit = bandwidth-avg
+  consensus bandwidth = Bandwidth
+
+``bandwidth rate limit`` appears here for 1st time to refer to the
+``bandwidth average``.
 
 .. code-block:: none
 
