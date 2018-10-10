@@ -22,12 +22,13 @@ Metrics performance
 
 [MetricsPerf]_
 
-* [MetricsBw]_
+Metrics bandwidth (advertised vs history)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: images/bandwidth-2018-05-22-2018-08-20.png
    :width: 800px
 
-* [TorflowMap]_
+[MetricsBw]_
 
 .. image:: images/map_bw_uncharted.png
    :width: 800px
