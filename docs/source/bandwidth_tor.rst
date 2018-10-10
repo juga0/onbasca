@@ -63,6 +63,7 @@ From tor code:
 ``advertised bandwidth`` is not mentioned in the spec, but it is used in the
 code to calculate the consensus bandwidth. See below.
 
+.. _bandwidth_tor_cons:
 
 Bandwidth values in dirauths' consensus documents
 --------------------------------------------------
