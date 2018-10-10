@@ -49,8 +49,11 @@ From tor code:
 
 .. code-block:: none
 
-   bandwidth-avg = min(RelayBandwidthRate, RelayBandwidthBurst, BandwidthRate, BandwidthBurst, MaxAdvertisedBandwidth)
-   bandwidth-burst = min(RelayBandwidthBust, BandwidthBurst)
+   bandwidth-avg = bandwidtrate = get_effective_bwrate()
+                 = min(RelayBandwidthRate, BandwidthRate, MaxAdvertisedBandwidth)
+   bandwidth-burst = bandwidthburst = get_effective_bwburst()
+                   = min(RelayBandwidthBust, BandwidthBurst)
+   bandwidth-observed = bandwidthcapacity = rep_hist_bandwidth_assess()
 
 ``advertised bandwidth`` = min(average bandwidth, burst bandwidth, observed bandwidth)
 
