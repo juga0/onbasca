@@ -106,9 +106,11 @@ From metrics in rst
 
   advertised bandwidth:
     the volume of traffic, both incoming and outgoing, that a relay is willing to sustain, as configured by the operator and claimed to be observed from recent data transfers.
+    [DIRSPEC427]_
 
   bandwidth history:
     the volume of incoming and/or outgoing traffic that a relay claims to have handled on behalf of clients.
+    [DIRSPEC833]_
 
   bridge:
     a relay whose existence is non-public and which can therefore provide access for blocked clients, often in combination with pluggable transports, which registers itself with the bridge authority.
@@ -127,6 +129,7 @@ From metrics in rst
 
   consensus weight:
     a value assigned to a relay that is based on bandwidth observed by the relay and bandwidth measured by the directory authorities, included in the hourly published consensus, and used by clients to select relays for their circuits.
+    [DIRSPEC2337]_
 
   directory authority:
     a special-purpose relay that maintains a list of currently-running relays and periodically publishes a consensus together with the other directory authorities.
