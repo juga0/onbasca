@@ -72,6 +72,20 @@ Bandwidth values in dirauths' consensus documents
 
   "w" SP "Bandwidth=" INT [SP "Measured=" INT] [SP "Unmeasured=1"] NL
 
+  The bandwidth in a “w” line should be [...]
+  the lesser of the observed bandwidth and bandwidth rate limit from the
+  server descriptor.
+  It is given in kilobytes per second, and capped at some arbitrary value
+  (currently 10 MB/s).
+
+  If 3 or more authorities provide a Measured= keyword for
+  a router, the authorities produce a consensus containing a "w"
+  Bandwidth= keyword equal to the median of the Measured= votes.
+
+  The Measured= keyword on a “w” line vote is currently computed by
+  multiplying the previous published consensus bandwidth by the ratio
+  of the measured average node stream capacity to the network average
+
 [DIRSPEC2337]_
 
 Bandwidth = min(observed bandwidth, descriptor bandwidth rate limit [?], 10MB/s) 
