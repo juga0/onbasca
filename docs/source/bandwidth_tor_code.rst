@@ -3,22 +3,25 @@
 Bandwidth code in ``tor``
 ==========================
 
-Descriptors
-------------
+To calculate descriptors bandwidth
+------------------------------------
 
-``bandwithrate`` is used to name ``bandwidth-avg`` [DIRSPEC427]_
+As stated in :ref:`bandwith_tor_desc`:
 
 .. code-block:: none
 
-  bandwidth-avg = min(RelayBandwidthRate, RelayBandwidthBust, BandwidthRate, BandwidthBurst, MaxAdvertisedBandwidth)
+   bandwidth-avg = bandwidtrate = get_effective_bwrate()
+                 = min(RelayBandwidthRate, BandwidthRate, MaxAdvertisedBandwidth)
+   bandwidth-burst = bandwidthburst = get_effective_bwburst()
+                   = min(RelayBandwidthBust, BandwidthBurst)
+   bandwidth-observed = bandwidthcapacity = rep_hist_bandwidth_assess()
 
-  bandwidth-burst = min(RelayBandwidthBust, BandwidthBurst)
+.. code-block:: none
 
-From ``get_effective_bwrate()`` [torDoxygenBwrate]_ and ``get_effective_bwburst()``
+  advertised bandwidth = router_get_advertised_bandwidth_capped()
+                       = min(bandwidtrate, bandwidthcapacity, 10MB/s)
 
-``bandwidthcapacity == ``bandwidth-observed`` (dir-spec)
-
-From ``rep_hist_bandwidth_asses`` that reads from ``bw_array_t``
+```rep_hist_bandwidth_asses`` that reads from ``bw_array_t``
 Example::
 
     bandwidthcapacity = max?(r 10547200, w 10536960)
