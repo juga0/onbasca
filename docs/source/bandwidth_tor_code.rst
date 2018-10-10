@@ -26,12 +26,7 @@ Example::
 
     bandwidthcapacity = max?(r 10547200, w 10536960)
 
-
-
-bandwidthcapacity 
-------------------
-
-``/or/router.c``:
+In ``/or/router.c``:
 
 .. code-block:: c
 
@@ -49,7 +44,7 @@ bandwidthcapacity
       (int) router->bandwidthburst,
       (int) router->bandwidthcapacity,
 
-``/or/rephist.c``:
+In ``/or/rephist.c``:
 
 .. code-block:: c
 
@@ -58,17 +53,17 @@ bandwidthcapacity
     commit_max
 
 
-``/or/dirserv.c``:
+In ``/or/dirserv.c``:
 
 .. code-block:: c
 
     set_routerstatus_from_routerinfo
 
     dirserv_get_credible_bandwidth_kb
-    
+
 measured bandwidth (by bwauths) or the self advertised bandwidth, but not any self measured bandwidth
 
-``/or/dirvote.c``:
+In ``/or/dirvote.c``:
 
 .. code-block:: c
 
