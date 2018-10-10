@@ -55,7 +55,13 @@ From tor code:
                    = min(RelayBandwidthBust, BandwidthBurst)
    bandwidth-observed = bandwidthcapacity = rep_hist_bandwidth_assess()
 
-``advertised bandwidth`` = min(average bandwidth, burst bandwidth, observed bandwidth)
+.. code-block:: none
+
+  advertised bandwidth = router_get_advertised_bandwidth_capped()
+                       = min(bandwidtrate, bandwidthcapacity, 10MB/s)
+
+``advertised bandwidth`` is not mentioned in the spec, but it is used in the
+code to calculate the consensus bandwidth. See below.
 
 
 Bandwidth values in dirauths' consensus documents
