@@ -3,6 +3,8 @@
 Bandwidth values in Tor (Aug 2018)
 ===================================
 
+.. _bandwidth_tor_conf:
+
 Bandwidth values in relays' configuration
 ------------------------------------------
 
@@ -23,6 +25,8 @@ Bandwidth values in relays' configuration
 * PerConnBWBurst
 
 [TOR1]_
+
+.. _bandwidth_tor_desc:
 
 Bandwidth values in relays' descriptor
 ---------------------------------------
