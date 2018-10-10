@@ -98,9 +98,37 @@ Bandwidth values in dirauths' consensus documents
 
 .. code-block:: none
 
-  If 3 or more authorities provide a Measured= keyword for
-  a router, the authorities produce a consensus containing a "w"
-  Bandwidth= keyword equal to the median of the Measured= votes.
+  Bandwidth = advertised bandwidth
+            = min(bandwidth-avg, bandwidth-observed, 10MB/s) (KB/s)
+
+If 3 or more authorities provide a Measured= keyword::
+
+  Bandwidth = consensus bandwidth * ratio(avg stream, network avg)
+
+``consensus bandwidth`` appears here for 1st time to refer to the consensus
+``Bandwidth``.
+``ratio of the measured average node stream capacity to the network average``
+refers to the calculation that Torflow does, which currently (no PID) is
+
+.. math::
+
+    bwn_i =&
+        max\left(
+            \frac{bw_i}{\mu},
+            \frac{bwf_i}{\mu_{bwf}}
+            \right)
+        \times bwobs_i
+
+That is, the maximum between the ratio of the measured stream bandwidth by
+the network average stream bandwidth and the ratio of the filtered bandwidth
+by the network average filtered bandwidth multiplied by the descriptor
+``observed bandwidth`` (not previous ``consenus bandwidth``)::
+
+  Bandwidth = observed bandwidth * (stream bandwidth / stream mu)
+
+See :ref:`torflow_aggr` form more details
+
+
 
 Bandwidth values origin
 ------------------------------
