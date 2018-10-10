@@ -51,7 +51,7 @@ From descriptors
 
     ::
 
-        bandwidth-avg = min(RelayBandwidthRate, RelayBandwidthBust, BandwidthRate, BandwidthBurst, MaxAdvertisedBandwidth)
+        bandwidth-avg = min(RelayBandwidthRate, BandwidthRate, MaxAdvertisedBandwidth)
 
   burst bandwidth:
     bw that the relay is willing to sustain in very short intervals
@@ -69,7 +69,9 @@ From descriptors
 
     ::
 
-      min(average bandwidth, burst bandwidth, observed bandwidth)
+      min(average bandwidth, observed bandwidth, 10MB/s)
+
+See :ref:`bandwidth_tor_desc`
 
 From consensus
 --------------------
@@ -82,7 +84,8 @@ From consensus
 
     ::
 
-        min(observed bandwidth, descriptor bandwidth rate limit, 10MB/s) KB/s
+        advertised bandwidth
+        = min(average bandwidth, observed bandwidth, 10MB/s)) KB/s
 
   Measured:
     If 3 or more authorities provide a Measured= keyword for
@@ -91,7 +94,9 @@ From consensus
 
     ::
 
-        descriptor observed bandwidth * ratio(...)
+        Bandwidth = observed bandwidth * (stream bandwidth / stream mu)
+
+See :ref:`bandwidth_tor_cons`
 
 From metrics in rst
 ----------------------
