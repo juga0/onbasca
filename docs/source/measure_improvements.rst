@@ -30,8 +30,20 @@ Metrics bandwidth (advertised vs history)
 
 [MetricsBw]_
 
+Metrics world map (consensus  vs advertised)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: images/map_bw_consensus_advertised.png
+   :width: 800px
+
+[MetricsWeight]_
+
+TorflowMap
+~~~~~~~~~~~
 .. image:: images/map_bw_uncharted.png
    :width: 800px
+
+[TorflowMap]_
 
 New bandwidth graphs ideas
 ---------------------------
