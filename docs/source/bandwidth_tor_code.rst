@@ -68,17 +68,70 @@ In ``/or/dirvote.c``:
 .. code-block:: c
 
     networkstatus_compute_consensus
-      
+
     smartlist_add_asprintf(chunks, "w Bandwidth=%d%s%s\n",
                              rs_out.bandwidth_kb,
                              unmeasured?" Unmeasured=1":"",
                              guardfraction_str ? guardfraction_str : "");
 
 
-Vote and consensus
--------------------
+To calculate vote and consensus bandwith
+----------------------------------------
 
-``Bandwidth`` [DIRSPEC2337]_::
+As stated in :ref:`bandwith_tor_cons`:
+
+
+.. code-block:: none
+
+  Bandwidth = advertised bandwidth
+            = min(bandwidth-avg, bandwidth-observed, 10MB/s) (KB/s)
+
+If 3 or more authorities provide a Measured= keyword::
+
+  Bandwidth = consensus bandwidth * ratio(avg stream, network avg)
+
+In ``dirserv.c``:
+
+.. code-block:: c
+
+    if (format == NS_CONTROL_PORT && rs->has_bandwidth) {
+      bw_kb = rs->bandwidth_kb;
+    } else {
+      tor_assert(desc);
+      bw_kb = router_get_advertised_bandwidth_capped(desc) / 1000;
+    }
+    smartlist_add_asprintf(chunks,
+                     "w Bandwidth=%d", bw_kb);
+
+    if (format == NS_V3_VOTE && vrs && vrs->has_measured_bw) {
+      smartlist_add_asprintf(chunks,
+                       " Measured=%d", vrs->measured_bw_kb);
+    }
+
+.. code-block:: c
+
+  STATIC int
+  measured_bw_line_apply(measured_bw_line_t *parsed_line,
+                         smartlist_t *routerstatuses)
+  {
+    vote_routerstatus_t *rs = NULL;
+    if (!routerstatuses)
+      return 0;
+
+    rs = smartlist_bsearch(routerstatuses, parsed_line->node_id,
+                           compare_digest_to_vote_routerstatus_entry);
+
+    if (rs) {
+      rs->has_measured_bw = 1;
+      rs->measured_bw_kb = (uint32_t)parsed_line->bw_kb;
+    } else {
+      log_info(LD_DIRSERV, "Node ID %s not found in routerstatus list",
+               parsed_line->node_hex);
+    }
+
+    return rs != NULL;
+  }
+
 
     Bandwidth = min(bandwidth-avg, bandwidth-observed)?
     
