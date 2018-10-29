@@ -76,7 +76,7 @@ In ``/or/dirvote.c``:
 
 
 To calculate vote and consensus bandwidth
-----------------------------------------
+-----------------------------------------
 
 As stated in :ref:`bandwidth_tor_cons`:
 
