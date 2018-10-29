@@ -177,11 +177,11 @@ do we really want SP to be F_avg?
 
 ::
 
-    bwf = filt_bw
+    bwfilt = filt_bw
 
 .. math::
 
-    e(t) = \frac{bwf_i}{\mu_{bwf}} - 1
+    e(t) = \frac{bwfilt_i}{\mu_{bwfilt}} - 1
 
 of the entire population or the sample of this measurement?
 
@@ -210,8 +210,8 @@ what is `new_bw` and `old_bw` here?
 .. math::
 	K_p = 1, K_i=K_d=0: \\
   bwn =& bwo + bwo e(t) \\
-  bwn =& bwo + bwo \left(\frac{bwf_i}{\mu_{bwf}} - 1\right) \\
-  bwn =& bwo \frac{bwf_i}{\mu_{bwf}}
+  bwn =& bwo + bwo \left(\frac{bwfilt_i}{\mu_{bwfilt}} - 1\right) \\
+  bwn =& bwo \frac{bwfilt_i}{\mu_{bwfilt}}
 
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 306-313
@@ -227,7 +227,7 @@ In the scaling without PID controller
     bwn_i =&
         max\left(
             \frac{bw_i}{\mu},
-            \frac{bwf_i}{\mu_{bwf}}
+            \frac{bwfilt_i}{\mu_{bwfilt}}
             \right)
         \times bwobs_i
 
