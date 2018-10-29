@@ -18,14 +18,23 @@ The variables and steps used in Torflow:
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 264, 265
 
-::
+.. math::
 
-    strm_bw = sum(bw stream x)/|n stream|
+    bw_i = \mu(bw_j) = \frac{\sum_{j=1}^{n}bw_j}{n}
 
 **filt_bw**
 
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 267-269
+
+.. math::
+
+    bwfilt_j &= max(\mu(bw_j), bw_j)
+           = max\left(\frac{\sum_{j=1}^{n}bw_j}{n}, bw_j\right)
+
+    bwfilt_i &= max(\mu(bw_j), bw_j)
+           = \frac{\sum_{j=1}^{n}max(\mu, bw_j)}{n_{bwfiltj}}
+           = \frac{\sum_{j=1}^{n}max\left(\frac{\sum_{j=1}^{n}bw_j}{n}, bw_j\right)}{n_{bwfiltj}}
 
 **filt_sbw and strm_sbw**
 
@@ -40,6 +49,18 @@ The variables and steps used in Torflow:
 .. literalinclude:: ../../docs_torflow/aggregate.py
    :lines: 519, 520
 
+.. math::
+
+   bwfilt &= \mu(bwfilt_i)
+            = \frac{\sum_{i=1}^{n}bwfilt_i}{n}
+            = \frac{\sum_{i=1}^{n}\frac{\sum_{j=1}^{n}max(\mu, bw_j)}{n_{bwfiltj}}}{n}
+            = \frac{\sum_{i=1}^{n}\frac{\sum_{j=1}^{n}max\left(\frac{\sum_{j=1}^{n}bw_j}{n}, bw_j\right)}{n_{bwfiltj}}}{n}
+
+.. math::
+
+   bwstrm &= \mu(bw_i)
+        = \frac{\sum_{i=1}^{n}\mu_i}{n}
+
 **true_filt_avg and true_strm_avg**
 
 .. literalinclude:: ../../docs_torflow/aggregate.py
@@ -52,6 +73,14 @@ In the non-pid case, all types of nodes get the same avg
 .. literalinclude:: ../../docs_torflow/aggregate.py
    :lines: 585-587
 
+
+.. math::
+
+    rf_i = \frac{bwfilt_i}{bwfilt}
+
+    rs_i = \frac{bw_i}{bwstrm}
+
+
 **n.ratio**
 
 .. literalinclude:: ../../docs_torflow/README.spec.txt
@@ -59,6 +88,12 @@ In the non-pid case, all types of nodes get the same avg
 
 .. literalinclude:: ../../docs_torflow/aggregate.py
    :lines: 742-764
+
+.. math::
+
+    r_i = max(rf_i, rs_i)
+        = max\left(\frac{bwfilt_i}{bwfilt}, \frac{bw_i}{bwstrm}\right)
+        = max\left(\frac{bwfilt_i}{\mu(bwfilt_i)}, \frac{bw_i}{\mu(bwfilt_i)}\right)
 
 **desc_bw**
 
@@ -81,6 +116,13 @@ bandwidth``
 
 The descriptor observed bandwidth is multiplied by the ratio.
 
+.. math::
+
+    bwnew_i = bwobs_i \times r_i
+            = bwobs_i \times max(rf_i, rs_i)
+            = bwobs_i \times max\left(\frac{bwfilt_i}{bwfilt}, \frac{bw_i}{bwstrm}\right)
+            = bwobs_i \times max\left(\frac{bwfilt_i}{\mu(bwfilt_i)}, \frac{bw_i}{\mu(bw_i)}\right)
+
 **Limit the bandwidth to a maximum**
 
 .. literalinclude:: ../../docs_torflow/aggregate.py
@@ -92,49 +134,27 @@ The descriptor observed bandwidth is multiplied by the ratio.
 However, tot_net_bw does not seems to be updated when not using pid.
 This clipping would make faster relays to all have the same value.
 
-All of that can be expressed as:
-
 .. math::
 
-    bwn_i &=
-        max\left(
-            \frac{bw_i}{\mu},
-            \frac{bwf_i}{\mu_{bwf}}
-            \right)
-        \times bwobs_i
+   bwn_i =& min\left(bwnew_i,
+              \sum_{i=1}^{n}bwnew_i \times 0.05\right) \
 
-.. math::
+         &= min\left(
+              \left(bwobs_i \times r_i\right),
+                \sum_{i=1}^{n}\left(bwobs_i \times r_i\right)
+                \times 0.05\right)\
 
-     bwn_i &=
-        max\left(
-            \frac{bw_i}{\mu},
-            min \left(
-                bw_i,
-                bw_i \times \mu
-                \right)
-                    \times
-                    \frac{bw_i}{\sum_{i=1}^{n}
-                    min \left(bw_i,
-                        bw_i \times \mu
-                    \right)}
-            \right)
-        \times bwobs_i \
+         &= min\left(
+              \left(bwobs_i \times max\left(rf_i, rs_i\right)\right),
+                \sum_{i=1}^{n}\left(bwobs_i \times
+                  max\left(rf_i, rs_i\right)\right) \times 0.05\right)\
 
-     &=
-        max\left(
-            \frac{bw_i}{\frac{\sum_{i=1}^{n}bw_i}{n}},
-            min \left(
-                bw_i,
-                bw_i \times \frac{\sum_{i=1}^{n}bw_i}{n}
-                \right)
-                    \times
-                    \frac{bw_i}{\sum_{i=1}^{n}
-                    min \left(bw_i,
-                        bw_i \times \frac{\sum_{i=1}^{n}bw_i}{n}
-                    \right)}
-            \right)
-        \times bwobs_i
-
+         &= min\left(
+              \left(bwobs_i \times max\left(\frac{bwfilt_i}{bwfilt},
+                  \frac{bw_i}{bwstrm}\right)\right),
+                \sum_{i=1}^{n}\left(bwobs_i \times
+                  max\left(\frac{bwfilt_i}{bwfilt},
+                    \frac{bw_i}{bwstrm}\right)\right) \times 0.05\right)
 
 
 Torflow PID Control feedback
