@@ -43,7 +43,8 @@ extensions = [
     ]
 
 intersphinx_mapping = {'sbwsdoc': ('https://sbws.readthedocs.io/en/latest',
-                                   'sbwsdoc.inv')}
+                                   None)}
+#                                    'sbwsdoc.inv')}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
