@@ -7,23 +7,23 @@ Scaling without PID
 --------------------
 
 From Torflow's README.spec.txt (section 2.2)
-  
+
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 315, 316, 317
 
 The variables and steps used in Torflow:
 
 **strm_bw**
-  
+
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 264, 265
 
 ::
-  
+
     strm_bw = sum(bw stream x)/|n stream|
 
 **filt_bw**
-  
+
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 267-269
 
@@ -36,7 +36,7 @@ The variables and steps used in Torflow:
 
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 305, 306
-   
+
 .. literalinclude:: ../../docs_torflow/aggregate.py
    :lines: 519, 520
 
@@ -67,7 +67,7 @@ bandwidth``
 
 .. literalinclude:: ../../docs_torflow/TorCtl.py
    :lines: 489-491
-    
+
 .. literalinclude:: ../../docs_torflow/TorCtl.py
    :lines: 384
 
@@ -85,7 +85,7 @@ The descriptor observed bandwidth is multiplied by the ratio.
 
 .. literalinclude:: ../../docs_torflow/aggregate.py
    :lines: 44
-   
+
 .. literalinclude:: ../../docs_torflow/aggregate.py
    :lines: 778-784
 
@@ -187,11 +187,11 @@ why the 1st term?
 
 what is `new_bw` and `old_bw` here?
 
-.. math:: 
+.. math::
 	K_p = 1, K_i=K_d=0: \\
   bwn =& bwo + bwo e(t) \\
   bwn =& bwo + bwo \left(\frac{bwf_i}{\mu_{bwf}} - 1\right) \\
-  bwn =& bwo \frac{bwf_i}{\mu_{bwf}} 
+  bwn =& bwo \frac{bwf_i}{\mu_{bwf}}
 
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 306-313
@@ -215,7 +215,7 @@ So the called ratio is the same, but not what is considered the new bw.
 
 .. literalinclude:: ../../docs_torflow/README.spec.txt
    :lines: 421-431
-   
+
 For the integral component: how the decay factor works?
 
 .. math::
