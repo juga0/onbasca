@@ -74,6 +74,27 @@ In ``/or/dirvote.c``:
                              unmeasured?" Unmeasured=1":"",
                              guardfraction_str ? guardfraction_str : "");
 
+To publish descriptor
+-----------------------
+
+In ``router.c``
+
+.. code-block:: c
+
+  /** By which factor bandwidth shifts have to change to be considered large. */
+  #define BANDWIDTH_CHANGE_FACTOR 2
+
+  #define MAX_BANDWIDTH_CHANGE_FREQ (3*60*60)
+  /** How frequently will we republish our descriptor because of large (factor
+   * of 2) shifts in estimated bandwidth? */
+
+  /** Maximum uptime to republish our descriptor because of large shifts in
+   * estimated bandwidth. */
+  #define MAX_UPTIME_BANDWIDTH_CHANGE (24*60*60)
+
+  /* If the relay uptime is bigger than MAX_UPTIME_BANDWIDTH_CHANGE,
+  * the next regularly scheduled descriptor update (18h) will be enough */
+  if (get_uptime() > MAX_UPTIME_BANDWIDTH_CHANGE)
 
 To calculate vote and consensus bandwidth
 -----------------------------------------
@@ -132,23 +153,80 @@ In ``dirserv.c``:
     return rs != NULL;
   }
 
-
-Constants
------------
+In ``dirvote.h``
 
 .. code-block:: c
 
-    DEFAULT_MAX_UNMEASURED_BW_KB 20
+  #define DEFAULT_MAX_UNMEASURED_BW_KB 20
 
-    BANDWIDTH_CHANGE_FACTOR 2
+Bandwidth self-test
+--------------------
 
-    NUM_SECS_ROLLING_MEASURE 10 /* secs */
+Reasons (https://trac.torproject.org/projects/tor/ticket/22453#comment:20)
+
+First, the reachability checks are performed, which open testing circuits.
+When the OR port is found reachable, it updates the descriptor (still no
+bandwidth test?).
+Then, the bandwidth test is performed, if it's the first time.
+
+In ``mainloop.c``:
+
+.. code-block:: c
+
+  static int
+  check_for_reachability_bw_callback(time_t now, const or_options_t *options)
+      [...]
+      router_do_reachability_checks(1, dirport_reachability_count==0);
+      [...]
+      reset_bandwidth_test();
+      [...]
+#define MIN_BANDWIDTH_RECHECK_INTERVAL (12*60*60)
+#define MAX_BANDWIDTH_RECHECK_INTERVAL (24*60*60)
+
+In ``circuituse.c``:
+
+It checks there're testing circuits, if there're are, calls ``router_perform_bandwidth_test``
+
+In ``selftest.c``:
+
+Sends drop cells.
+
+.. code-block:: c
+
+  void
+  router_perform_bandwidth_test(int num_circs, time_t now)
+    [...]
+    log_notice(LD_OR,"Performing bandwidth self-test...done.");
+
+Bandwidth observed
+-------------------
+
+In ``rephist.c``
+
+.. code-block:: c
+
+  /** How large are the intervals for which we track and report bandwidth use? */
+  #define NUM_SECS_BW_SUM_INTERVAL (24*60*60)
+
+  /** How far in the past do we remember and publish bandwidth use? */
+  #define NUM_SECS_BW_SUM_IS_VALID (24*60*60)
+
+  #define NUM_TOTALS (NUM_SECS_BW_SUM_IS_VALID/NUM_SECS_BW_SUM_INTERVAL)
+
+  NUM_SECS_ROLLING_MEASURE 10
+
+  rep_hist_bandwidth_assess
 
 
-    NUM_SECS_BW_SUM_IS_VALID (5*24*60*60) /* 5 days */
-    NUM_SECS_BW_SUM_INTERVAL (24*60*60) /* 24 hours */
-    MAX_UPTIME_BANDWIDTH_CHANGE (24*60*60)
-    MAX_BANDWIDTH_CHANGE_FREQ (3*60*60) /* 3 hours */
+  /** Allocate, initialize, and return a new bw_array. */
+  static bw_array_t *
+  bw_array_new(void)
 
-    NUM_TOTALS = NUM_SECS_BW_SUM_IS_VALID / NUM_SECS_BW_SUM_INTERVAL  = 5
-    NUM_SECS_BW_SUM_INTERVAL * NUM_TOTALS = NUM_SECS_BW_SUM_IS_VALID (5 days)
+    b->next_period = start + NUM_SECS_BW_SUM_INTERVAL
+
+  /** Shift the current period of b forward by one. */
+  STATIC void
+  commit_max(bw_array_t *b)
+
+set from the begining the `next_period` to 1 day, so `commit_max` doesn't happen until then.
+
